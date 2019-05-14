@@ -9,30 +9,6 @@ logging:
     org.springframework.security.oauth2: INFO
 #    org.springframework.boot.autoconfigure: DEBUG
 
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8090/auth/realms/oauth2-demo
-      client:
-        registration:
-          client-c-exchange:
-            provider: keycloak
-            client-id: client-c
-            client-secret: secret
-            authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-            scope: authority-c
-          client-c:
-            provider: keycloak
-            client-id: client-c
-            client-secret: secret
-            authorization-grant-type: client_credentials
-            scope: authority-c
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8090/auth/realms/oauth2-demo
-
 oauth2:
   resource:
     services:
