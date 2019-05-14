@@ -15,8 +15,6 @@
  */
 package sample.web;
 
-import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -43,16 +41,15 @@ public class FlowABCClientCredentialsController extends AbstractFlowController {
 	}
 
 	@GetMapping
-	public String flowABC_ClientCredentials(@RegisteredOAuth2AuthorizedClient("client-ab") OAuth2AuthorizedClient clientAB,
-											OAuth2AuthenticationToken oauth2Authentication,
+	public String flowABC_ClientCredentials(OAuth2AuthenticationToken oauth2Authentication,
 											HttpServletRequest request,
 											Map<String, Object> model) {
 
-		ServiceCallResponse serviceACallResponse = callService(ServicesConfig.SERVICE_A, clientAB);
+		ServiceCallResponse serviceACallResponse = callService(ServicesConfig.SERVICE_A, null);
 
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.put(FLOW_TYPE_PARAMETER, Collections.singletonList(FLOW_TYPE_CLIENT_CREDENTIALS));
-		ServiceCallResponse serviceBCallResponse = callService(ServicesConfig.SERVICE_B, clientAB, params);
+		ServiceCallResponse serviceBCallResponse = callService(ServicesConfig.SERVICE_B, null, params);
 
 		String modelAttr = "flowABCCall_" + FLOW_TYPE_CLIENT_CREDENTIALS;
 		model.put(modelAttr, fromUiApp(oauth2Authentication, request, serviceACallResponse, serviceBCallResponse));
