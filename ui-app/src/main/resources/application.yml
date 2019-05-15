@@ -9,6 +9,21 @@ logging:
     org.springframework.security.oauth2: INFO
 #    org.springframework.boot.autoconfigure: DEBUG
 
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          login-client:
+            provider: keycloak
+            client-id: login-client
+            client-authentication-method: none
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid,profile,email
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8090/auth/realms/oauth2-demo
+
 oauth2:
   resource:
     services:
