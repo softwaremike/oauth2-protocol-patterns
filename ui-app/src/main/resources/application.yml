@@ -20,6 +20,12 @@ spring:
             client-authentication-method: none
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope: openid,profile,email
+          client-abc:
+            provider: keycloak
+            client-id: client-abc
+            client-secret: secret
+            redirect-uri: "{baseUrl}/flow-abc"
+            scope: authority-a,authority-b,authority-c
         provider:
           keycloak:
             issuer-uri: http://localhost:8090/auth/realms/oauth2-demo
