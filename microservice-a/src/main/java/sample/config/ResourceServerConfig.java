@@ -31,11 +31,10 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests(authorizeRequests ->
 				authorizeRequests
-					.mvcMatchers("/service-b/**").access("hasAuthority('SCOPE_authority-b')"))
+					.mvcMatchers("/service-a/**").access("hasAuthority('SCOPE_authority-a')"))
 			.oauth2ResourceServer(oauth2ResourceServer ->
 				oauth2ResourceServer
-					.jwt())
-			.oauth2Client();
+					.jwt());
 	}
 	// @formatter:on
 }
