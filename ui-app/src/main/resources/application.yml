@@ -19,32 +19,32 @@ spring:
       client:
         registration:
           login-client:
-            provider: uaa
-            client-id: login-client
-            client-secret: secret
+            provider: azure
+            client-id: fdb20d4d-5972-4882-831b-8caae9c5f6d9
+            client-secret: u7bGq/1wTSCGnkKhy82zjuhikgfl=G?@
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope: openid,profile,email
           client-a:
-            provider: uaa
-            client-id: client-a
-            client-secret: secret
+            provider: azure
+            client-id: 6e7827b0-6df9-4ca2-b7a7-6040fa938e8f
+            client-secret: LbL.mbquoJZ41o]r7Q-zRkl4Zotkf/.x
             redirect-uri: "{baseUrl}/flow-a"
-            scope: authority-a
+            scope: api://microservice-a/authority-a
           client-ab:
-            provider: uaa
-            client-id: client-ab
-            client-secret: secret
+            provider: azure
+            client-id: 41a57c7b-5c43-47df-8f4e-bd08e6b1831b
+            client-secret: XFbGsD=i7Gzvt.099PhgVIpJAbx.zHC.
             redirect-uri: "{baseUrl}/flow-ab"
-            scope: authority-a,authority-b
+            scope: api://microservice-b/authority-a, api://microservice-b/authority-b
           client-abc:
-            provider: uaa
+            provider: azure
             client-id: client-abc
             client-secret: secret
             redirect-uri: "{baseUrl}/flow-abc"
             scope: authority-a,authority-b,authority-c
         provider:
-          uaa:
-            issuer-uri: http://localhost:8090/uaa/oauth/token
+          azure:
+            issuer-uri: https://login.microsoftonline.com/11439311-814c-45af-91da-11a6029b5332/v2.0
 
 oauth2:
   resource:

@@ -14,24 +14,24 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8090/uaa/oauth/token
+          jwk-set-uri: https://login.microsoftonline.com/11439311-814c-45af-91da-11a6029b5332/discovery/v2.0/keys
       client:
         registration:
+          client-c:
+            provider: azure
+            client-id: de838587-c53a-4f81-a57e-c530d01edab0
+            client-secret: MmpcLkI:9f-Qm.Vkwz4sJHa:y3XLQom0
+            authorization-grant-type: client_credentials
+            scope: api://microservice-c/.default
           client-c-exchange:
-            provider: uaa
+            provider: azure
             client-id: client-c
             client-secret: secret
             authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
             scope: authority-c
-          client-c:
-            provider: uaa
-            client-id: client-c
-            client-secret: secret
-            authorization-grant-type: client_credentials
-            scope: authority-c
         provider:
-          uaa:
-            issuer-uri: http://localhost:8090/uaa/oauth/token
+          azure:
+            issuer-uri: https://login.microsoftonline.com/11439311-814c-45af-91da-11a6029b5332/v2.0
 
 oauth2:
   resource:

@@ -15,9 +15,14 @@
  */
 package sample.config;
 
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 
 /**
  * @author Joe Grandja
@@ -34,7 +39,16 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 					.mvcMatchers("/service-c/**").access("hasAuthority('SCOPE_authority-c')")
 					.anyRequest().authenticated())
 			.oauth2ResourceServer()
-				.jwt();
+				.jwt()
+					.jwtAuthenticationConverter(jwtAuthenticationConverter());
 	}
 	// @formatter:on
+
+	private Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter() {
+		JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+		jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
+		JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+		jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+		return jwtAuthenticationConverter;
+	}
 }

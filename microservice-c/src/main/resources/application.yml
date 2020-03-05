@@ -14,4 +14,4 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8090/uaa/oauth/token
+          jwk-set-uri: https://login.microsoftonline.com/11439311-814c-45af-91da-11a6029b5332/discovery/v2.0/keys
