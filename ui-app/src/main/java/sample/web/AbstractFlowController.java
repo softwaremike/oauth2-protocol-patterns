@@ -75,16 +75,17 @@ abstract class AbstractFlowController {
 											HttpServletRequest request,
 											ServiceCallResponse... serviceCallResponses) {
 
-		OidcUser oidcUser = (OidcUser) oauth2Authentication.getPrincipal();
-
 		ServiceCallResponse serviceCallResponse = new ServiceCallResponse();
 		serviceCallResponse.setServiceName(ServicesConfig.UI_APP);
 		serviceCallResponse.setServiceUri(request.getRequestURL().toString());
 		serviceCallResponse.setJti("(opaque to client)");
-		serviceCallResponse.setSub(oidcUser.getSubject());
-		serviceCallResponse.setAud(oidcUser.getAudience());
-		serviceCallResponse.setAuthorities(oauth2Authentication.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority).sorted().collect(Collectors.toList()));
+		if (oauth2Authentication != null) {
+			OidcUser oidcUser = (OidcUser) oauth2Authentication.getPrincipal();
+			serviceCallResponse.setSub(oidcUser.getSubject());
+			serviceCallResponse.setAud(oidcUser.getAudience());
+			serviceCallResponse.setAuthorities(oauth2Authentication.getAuthorities().stream()
+					.map(GrantedAuthority::getAuthority).sorted().collect(Collectors.toList()));
+		}
 		if (serviceCallResponses != null) {
 			serviceCallResponse.setServiceCallResponses(Arrays.asList(serviceCallResponses));
 		}
