@@ -38,11 +38,13 @@ public class ServiceAController {
 		ServiceCallResponse serviceCallResponse = new ServiceCallResponse();
 		serviceCallResponse.setServiceName(SERVICE_A);
 		serviceCallResponse.setServiceUri(request.getRequestURL().toString());
-		serviceCallResponse.setJti(jwtAuthentication.getToken().getId());
-		serviceCallResponse.setSub(jwtAuthentication.getToken().getSubject());
-		serviceCallResponse.setAud(jwtAuthentication.getToken().getAudience());
-		serviceCallResponse.setAuthorities(jwtAuthentication.getAuthorities().stream()
-				.map(GrantedAuthority::getAuthority).sorted().collect(Collectors.toList()));
+		if (jwtAuthentication != null) {
+			serviceCallResponse.setJti(jwtAuthentication.getToken().getId());
+			serviceCallResponse.setSub(jwtAuthentication.getToken().getSubject());
+			serviceCallResponse.setAud(jwtAuthentication.getToken().getAudience());
+			serviceCallResponse.setAuthorities(jwtAuthentication.getAuthorities().stream()
+					.map(GrantedAuthority::getAuthority).sorted().collect(Collectors.toList()));
+		}
 
 		return serviceCallResponse;
 	}
