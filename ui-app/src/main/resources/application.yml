@@ -24,6 +24,12 @@ spring:
             client-secret: secret
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope: openid,profile,email
+          client-abc:
+            provider: uaa
+            client-id: client-abc
+            client-secret: secret
+            redirect-uri: "{baseUrl}/flow-abc"
+            scope: authority-a,authority-b,authority-c
         provider:
           uaa:
             issuer-uri: http://localhost:8090/uaa/oauth/token
