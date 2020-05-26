@@ -9,6 +9,12 @@ logging:
     org.springframework.security.oauth2: INFO
 #    org.springframework.boot.autoconfigure: DEBUG
 
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8090/uaa/oauth/token
 
 oauth2:
   resource:
