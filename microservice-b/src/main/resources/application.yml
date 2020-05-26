@@ -9,29 +9,6 @@ logging:
     org.springframework.security.oauth2: INFO
 #    org.springframework.boot.autoconfigure: DEBUG
 
-spring:
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8090/uaa/oauth/token
-      client:
-        registration:
-          client-c-exchange:
-            provider: uaa
-            client-id: client-c
-            client-secret: secret
-            authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
-            scope: authority-c
-          client-c:
-            provider: uaa
-            client-id: client-c
-            client-secret: secret
-            authorization-grant-type: client_credentials
-            scope: authority-c
-        provider:
-          uaa:
-            issuer-uri: http://localhost:8090/uaa/oauth/token
 
 oauth2:
   resource:
