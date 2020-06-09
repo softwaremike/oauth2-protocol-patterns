@@ -39,7 +39,7 @@ public class ServiceBClientCredentialsController extends AbstractFlowController 
 	public ServiceCallResponse serviceB_ClientCredentials(JwtAuthenticationToken jwtAuthentication,
 															HttpServletRequest request) {
 
-		ServiceCallResponse serviceCCallResponse = callServiceC("client-c");
+		ServiceCallResponse serviceCCallResponse = callServiceC("client-abc-client-credentials");
 		return fromServiceB(jwtAuthentication, request, serviceCCallResponse);
 	}
 }

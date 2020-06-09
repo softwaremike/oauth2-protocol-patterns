@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8888
 
 logging:
   level:
@@ -19,37 +19,48 @@ spring:
       client:
         registration:
           login-client:
-            provider: uaa
+            provider: keycloak
             client-id: login-client
-            client-secret: secret
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-authentication-method: none
+# Can get rid of these two since we are using discovery via the issuer-uri in Keycloak (defined in "provider" below)
+#            authorization-grant-type: authorization_code
+#            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             scope: openid,profile,email
           client-a:
-            provider: uaa
+            provider: keycloak
             client-id: client-a
-            client-secret: secret
+            client-secret: 6b91793f-4d9f-4cd3-8f59-2539c882e60c
             redirect-uri: "{baseUrl}/flow-a"
             scope: authority-a
           client-ab:
-            provider: uaa
+            provider: keycloak
             client-id: client-ab
-            client-secret: secret
+            client-secret: a78e2295-2cdf-4548-b9c3-f71dc6e722b3
             redirect-uri: "{baseUrl}/flow-ab"
             scope: authority-a,authority-b
           client-abc:
-            provider: uaa
+            provider: keycloak
             client-id: client-abc
-            client-secret: secret
+            client-secret: 0d278922-adab-42f1-bedb-76638817236d
             redirect-uri: "{baseUrl}/flow-abc"
             scope: authority-a,authority-b,authority-c
         provider:
-          uaa:
-            issuer-uri: http://localhost:8090/uaa/oauth/token
+          keycloak:
+            issuer-uri: "http://localhost:8080/auth/realms/oauth2-demo"
+# Since we are using issuer-uri above, we don't need all this stuff below (Spring looks it up from the well-known stuff)
+#            authorization-uri: "http://localhost:8080/auth/realms/oauth2-demo/protocol/openid-connect/auth"
+#            token-uri: "http://localhost:8080/auth/realms/oauth2-demo/protocol/openid-connect/token"
+#            user-info-uri: "http://localhost:8080/auth/realms/oauth2-demo/protocol/openid-connect/userinfo"
+#            user-name-attribute: sub
+#            jwk-set-uri: "http://localhost:8080/auth/realms/oauth2-demo/protocol/openid-connect/certs"
+
+
+keycloak-uri: http://localhost:8080/auth/realms/oauth2-demo
 
 oauth2:
   resource:
     services:
       service-a:
-        uri: http://localhost:9000/service-a
+        uri: http://localhost:9100/service-a
       service-b:
-        uri: http://localhost:9001/service-b
+        uri: http://localhost:9101/service-b

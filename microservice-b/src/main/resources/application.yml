@@ -1,5 +1,5 @@
 server:
-  port: 9001
+  port: 9101
 
 logging:
   level:
@@ -14,27 +14,36 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8090/uaa/oauth/token
+          issuer-uri: http://localhost:8080/auth/realms/oauth2-demo
+          # Don't need the below URI since we are using issuer-uri above
+          #jwk-set-uri: http://localhost:8080/auth/realms/oauth2-demo/protocol/openid-connect/certs
       client:
         registration:
           client-c-exchange:
-            provider: uaa
+            provider: keycloak
             client-id: client-c
-            client-secret: secret
+            client-secret: 04fdde49-4a30-42b2-94eb-c80960361767
             authorization-grant-type: urn:ietf:params:oauth:grant-type:jwt-bearer
             scope: authority-c
-          client-c:
-            provider: uaa
-            client-id: client-c
-            client-secret: secret
+          #Client used to call service c using client credentials
+          client-abc-client-credentials:
+            provider: keycloak
+            client-id: client-abc
+            client-secret: 0d278922-adab-42f1-bedb-76638817236d
             authorization-grant-type: client_credentials
             scope: authority-c
+          #client-c-client-credentials:
+          #  provider: keycloak
+          #  client-id: client-c
+          #  client-secret: 04fdde49-4a30-42b2-94eb-c80960361767
+          #  authorization-grant-type: client_credentials
+          #  scope: authority-c
         provider:
-          uaa:
-            issuer-uri: http://localhost:8090/uaa/oauth/token
+          keycloak:
+            issuer-uri: http://localhost:8080/auth/realms/oauth2-demo
 
 oauth2:
   resource:
     services:
       service-c:
-        uri: http://localhost:9002/service-c
+        uri: http://localhost:9102/service-c

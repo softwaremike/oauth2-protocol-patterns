@@ -39,7 +39,7 @@ public class ServiceBTokenRelayController extends AbstractFlowController {
 	public ServiceCallResponse serviceB_TokenRelay(JwtAuthenticationToken jwtAuthentication,
 													HttpServletRequest request) {
 
-		ServiceCallResponse serviceCCallResponse = callServiceC(jwtAuthentication.getToken());
+		ServiceCallResponse serviceCCallResponse = callServiceCUsingToken(jwtAuthentication.getToken());
 		return fromServiceB(jwtAuthentication, request, serviceCCallResponse);
 	}
 }

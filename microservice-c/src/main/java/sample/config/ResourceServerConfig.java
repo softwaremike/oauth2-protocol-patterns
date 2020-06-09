@@ -15,6 +15,7 @@
  */
 package sample.config;
 
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -23,6 +24,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @author Joe Grandja
  */
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 
 	// @formatter:off
@@ -34,7 +36,9 @@ public class ResourceServerConfig extends WebSecurityConfigurerAdapter {
 					.mvcMatchers("/service-c/**").access("hasAuthority('SCOPE_authority-c')")
 					.anyRequest().authenticated())
 			.oauth2ResourceServer()
-				.jwt();
+				.jwt()
+				.jwtAuthenticationConverter(new CustomJwtAuthenticationConverter("client-abc"));
+
 	}
 	// @formatter:on
 }

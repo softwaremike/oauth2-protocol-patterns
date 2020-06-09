@@ -15,6 +15,7 @@
  */
 package sample.web;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -33,8 +35,12 @@ public class ServiceAController {
 	private static final String SERVICE_A = "service-a";
 
 	@GetMapping
+	@PreAuthorize("hasRole('RoleA')")
 	public ServiceCallResponse serviceA(JwtAuthenticationToken jwtAuthentication,
 										HttpServletRequest request) {
+		boolean b = request.isUserInRole("RoleA");
+		System.out.println("Role? " + b);
+
 		ServiceCallResponse serviceCallResponse = new ServiceCallResponse();
 		serviceCallResponse.setServiceName(SERVICE_A);
 		serviceCallResponse.setServiceUri(request.getRequestURL().toString());
@@ -43,6 +49,10 @@ public class ServiceAController {
 		serviceCallResponse.setAud(jwtAuthentication.getToken().getAudience());
 		serviceCallResponse.setAuthorities(jwtAuthentication.getAuthorities().stream()
 				.map(GrantedAuthority::getAuthority).sorted().collect(Collectors.toList()));
+
+		Map<String, Object> claims = jwtAuthentication.getToken().getClaims();
+
+		System.out.println(claims);
 
 		return serviceCallResponse;
 	}

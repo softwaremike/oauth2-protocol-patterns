@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.permitAll())
 			.logout(logout ->
 				logout
-					.logoutSuccessUrl("http://localhost:8090/uaa/logout.do?client_id=login-client&redirect=http://localhost:8080"))
+					.logoutSuccessUrl("http://localhost:8080/auth/realms/oauth2-demo/protocol/openid-connect/logout&redirect=http://localhost:8888"))
 			.oauth2Client();
 	}
 	// @formatter:on

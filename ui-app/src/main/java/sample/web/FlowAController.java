@@ -39,7 +39,7 @@ public class FlowAController extends AbstractFlowController {
 	}
 
 	@GetMapping
-	public String flowA(@RegisteredOAuth2AuthorizedClient("client-a") OAuth2AuthorizedClient clientA,
+	public String flowA(@RegisteredOAuth2AuthorizedClient("client-abc") OAuth2AuthorizedClient clientA,
 						OAuth2AuthenticationToken oauth2Authentication,
 						HttpServletRequest request,
 						Map<String, Object> model) {

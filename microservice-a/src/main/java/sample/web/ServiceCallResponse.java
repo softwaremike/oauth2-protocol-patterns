@@ -29,6 +29,7 @@ public class ServiceCallResponse {
 	private String sub;
 	private List<String> aud = Collections.emptyList();
 	private List<String> authorities = Collections.emptyList();
+	private List<String> roles = Collections.emptyList();
 	private Map<String, Object> additionalInfo = Collections.emptyMap();
 	private List<ServiceCallResponse> serviceCallResponses = Collections.emptyList();
 
@@ -78,6 +79,14 @@ public class ServiceCallResponse {
 
 	public void setAuthorities(List<String> authorities) {
 		this.authorities = authorities;
+	}
+
+	public List<String> getRoles() {
+		return this.roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
 	}
 
 	public Map<String, Object> getAdditionalInfo() {

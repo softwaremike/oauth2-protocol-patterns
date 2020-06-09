@@ -40,7 +40,7 @@ abstract class AbstractFlowController {
 		this.servicesConfig = servicesConfig;
 	}
 
-	protected ServiceCallResponse callServiceC(Jwt jwt) {
+	protected ServiceCallResponse callServiceCUsingToken(Jwt jwt) {
 		ServicesConfig.ServiceConfig serviceConfig =
 				this.servicesConfig.getConfig(ServicesConfig.SERVICE_C);
 

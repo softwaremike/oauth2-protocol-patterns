@@ -15,6 +15,7 @@
  */
 package sample.web;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,7 @@ public class ServiceCController {
 	private static final String SERVICE_C = "service-c";
 
 	@GetMapping
+	@PreAuthorize("hasRole('RoleA')")
 	public ServiceCallResponse serviceC(JwtAuthenticationToken jwtAuthentication,
 										HttpServletRequest request) {
 		ServiceCallResponse serviceCallResponse = new ServiceCallResponse();
